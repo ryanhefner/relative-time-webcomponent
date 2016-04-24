@@ -21,13 +21,15 @@ class RelativeTime extends HTMLElement {
 // Private Methods ___________________________________________________________
 
     [tick]() {
-        if (!this.dataset.date) {
+        const dateTime = this.getAttribute('datetime');
+
+        if (!dateTime) {
             return;
         }
 
         let value;
         const now = new Date();
-        const date = new Date(this.dataset.date);
+        const date = new Date(dateTime);
         const diff = now.getTime() - date.getTime();
 
         if (diff >= DECADE) {
@@ -88,7 +90,7 @@ class RelativeTime extends HTMLElement {
 
     attributeChangedCallback(attr, oldVal, newVal) {
         switch (attr) {
-            case 'data-date':
+            case 'datetime':
                 requestAnimationFrame(this[tick].bind(this));
                 break;
         }

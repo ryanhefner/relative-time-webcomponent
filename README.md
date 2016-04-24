@@ -8,7 +8,13 @@
 ## Usage
 
 
+
+```
+    <relative-time datetime="2016-04-24T29:38:00"></relative-time>
+```
+
 ## License
+
 The MIT License (MIT)
 
 Copyright (c) 2016 Ryan Hefner [https://www.ryanhefner.com](https://www.ryanhefner.com)
