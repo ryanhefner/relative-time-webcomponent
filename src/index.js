@@ -7,6 +7,8 @@
  */
 
 const tick = Symbol();
+const pastRelativeTime = Symbol();
+const futureRelativeTime = Symbol();
 const autoUpdateEnabled = Symbol();
 
 const SECOND = 1000;
@@ -28,53 +30,94 @@ class RelativeTime extends HTMLElement {
             return;
         }
 
-        let value;
         const now = new Date();
         const date = new Date(dateTime);
         const diff = now.getTime() - date.getTime();
 
-        if (diff >= DECADE) {
-            const decades = Math.floor(diff / DECADE);
-            value = decades === 1
-                ? `${decades} decade ago`
-                : `${decades} decades ago`;
-        }
-        else if (diff >= YEAR) {
-            const years = Math.floor(diff / YEAR);
-            value = years === 1
-                ? `${years} year ago`
-                : `${years} years ago`;
-        }
-        else if (diff >= DAY) {
-            const days = Math.floor(diff / DAY);
-            value = days === 1
-                ? `${days} day ago`
-                : `${days} days ago`;
-        }
-        else if (diff >= HOUR) {
-            const hours = Math.floor(diff / HOUR);
-            value = hours === 1
-                ? `${hours} hour ago`
-                : `${hours} hours ago`;
-        }
-        else if (diff >= MINUTE) {
-            const minutes = Math.floor(diff / MINUTE);
-            value = minutes === 1
-                ? `${minutes} minute ago`
-                : `${minutes} minutes ago`;
-        }
-        else {
-            const seconds = Math.floor(diff / SECOND);
-            value = seconds === 1
-                ? `${seconds} second ago`
-                : `${seconds} seconds ago`;
-        }
-
-        this.innerHTML = value;
+        this.innerHTML = diff > 0
+            ? this[pastRelativeTime](diff)
+            : this[futureRelativeTime](diff * -1);
 
         if (this[autoUpdateEnabled]) {
             requestAnimationFrame(this[tick].bind(this));
         }
+    }
+
+    [pastRelativeTime](diff) {
+        if (diff >= DECADE) {
+            const decades = Math.floor(diff / DECADE);
+            return decades === 1
+                ? `${decades} decade ago`
+                : `${decades} decades ago`;
+        }
+
+        if (diff >= YEAR) {
+            const years = Math.floor(diff / YEAR);
+            return years === 1
+                ? `${years} year ago`
+                : `${years} years ago`;
+        }
+
+        if (diff >= DAY) {
+            const days = Math.floor(diff / DAY);
+            return days === 1
+                ? `${days} day ago`
+                : `${days} days ago`;
+        }
+
+        if (diff >= HOUR) {
+            const hours = Math.floor(diff / HOUR);
+            return hours === 1
+                ? `${hours} hour ago`
+                : `${hours} hours ago`;
+        }
+
+        if (diff >= MINUTE) {
+            const minutes = Math.floor(diff / MINUTE);
+            return minutes === 1
+                ? `${minutes} minute ago`
+                : `${minutes} minutes ago`;
+        }
+
+        const seconds = Math.floor(diff / SECOND);
+        return seconds === 1
+            ? `${seconds} second ago`
+            : `${seconds} seconds ago`;
+    }
+
+    [futureRelativeTime](diff) {
+        if (diff >= DECADE) {
+            const decades = Math.floor(diff / DECADE);
+            return decades === 1
+                ? `in a decade`
+                : `in ${decades} decades`;
+        }
+
+        if (diff >= YEAR) {
+            const years = Math.floor(diff / YEAR);
+            return years === 1
+                ? `in a year`
+                : `in ${years} years`;
+        }
+
+        if (diff >= DAY) {
+            const days = Math.floor(diff / DAY);
+            return days === 1
+                ? `in a day`
+                : `in ${days} days`;
+        }
+
+        if (diff >= HOUR) {
+            const hours = Math.floor(diff / HOUR);
+            return hours === 1
+                ? `in an hour`
+                : `in ${hours} hours`;
+        }
+
+        const seconds = Math.floor(diff / SECOND);
+        return seconds === 1
+            ? `in a second`
+            : `in ${seconds} seconds`;
     }
 
     [autoUpdateEnabled]() {
