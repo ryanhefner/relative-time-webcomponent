@@ -6,6 +6,7 @@
  * @author Ryan Hefner <hi@ryanhefner.com>
  */
 
+const requestId = Symbol();
 const tick = Symbol();
 const pastRelativeTime = Symbol();
 const futureRelativeTime = Symbol();
@@ -39,7 +40,7 @@ class RelativeTime extends HTMLElement {
             : this[futureRelativeTime](diff * -1);
 
         if (this[autoUpdateEnabled]) {
-            requestAnimationFrame(this[tick].bind(this));
+            this[requestId] = requestAnimationFrame(this[tick].bind(this));
         }
     }
 
@@ -142,8 +143,8 @@ class RelativeTime extends HTMLElement {
     }
 
     detachedCallback() {
-        if (this[autoUpdateEnabled]) {
-            requestAnimationFrame(null);
+        if (this[requestId]) {
+            cancelAnimationFrame(this[requestId]);
         }
     }
 
