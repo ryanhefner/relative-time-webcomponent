@@ -7,6 +7,7 @@
  */
 
 const tick = Symbol();
+const autoUpdateEnabled = Symbol();
 
 const SECOND = 1000;
 const MINUTE = SECOND * 60;
@@ -71,7 +72,13 @@ class RelativeTime extends HTMLElement {
 
         this.innerHTML = value;
 
-        requestAnimationFrame(this[tick].bind(this));
+        if (this[autoUpdateEnabled]) {
+            requestAnimationFrame(this[tick].bind(this));
+        }
+    }
+
+    [autoUpdateEnabled]() {
+        return this.getAttribute('autoupdate') !== null;
     }
 
 // Event Handlers ____________________________________________________________
@@ -81,17 +88,19 @@ class RelativeTime extends HTMLElement {
     }
 
     attachedCallback() {
-        requestAnimationFrame(this[tick].bind(this));
+        this[tick]();
     }
 
     detachedCallback() {
-        requestAnimationFrame(null);
+        if (this[autoUpdateEnabled]) {
+            requestAnimationFrame(null);
+        }
     }
 
     attributeChangedCallback(attr, oldVal, newVal) {
         switch (attr) {
             case 'datetime':
-                requestAnimationFrame(this[tick].bind(this));
+                this[tick]();
                 break;
         }
     }
@@ -99,4 +108,4 @@ class RelativeTime extends HTMLElement {
 
 // Exports ___________________________________________________________________
 
-export default document.registerElement('relative-time', RelativeTime);
+module.exports = document.registerElement('relative-time', RelativeTime);

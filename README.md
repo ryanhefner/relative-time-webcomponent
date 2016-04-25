@@ -1,16 +1,22 @@
-# `relative-time` Webcomponent
+# `<relative-time>` webcomponent
+
+A [web component](https://developer.mozilla.org/en-US/docs/Web/Web_Components) used when you want to render the relative time to a date.
+It is setup with the intention to be used like you would the `<time>` element.
 
 
 ## Installation
 
 `npm install relative-time-webcomponent`
 
+Or
+
+`bower install relative-time-webcomponent`
+
 ## Usage
-
-
 
 ```
     <relative-time datetime="2016-04-24T19:38:00"></relative-time>
+    <relative-time datetime="2016-04-24T19:38:00" autoupdate></relative-time>
 ```
 
 ## License

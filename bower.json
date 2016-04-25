@@ -1,0 +1,17 @@
+{
+  "name": "relative-time-webcomponent",
+  "description": "A simple webcomponent used to render relative time, <relative-time></relative-time>, based on a provided date/time.",
+  "main": "./dist/index.js",
+  "authors": [
+    "Ryan Hefner <hi@ryanhefner.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "webcomponent",
+    "date",
+    "time",
+    "relative",
+    "time"
+  ],
+  "homepage": "https://github.com/ryanhefner/relative-time-webcomponent"
+}
