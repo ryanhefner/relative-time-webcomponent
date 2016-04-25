@@ -18,8 +18,10 @@ Since web components are relatively new and not widely supported by most browser
 the following requirements will need to be included in your project in order for
 this to work properly across the majority of browsers that need to be supported today.
 
-`npm install document-register-element`
-`npm install es6-symbol`
+```
+npm install document-register-element
+npm install es6-symbol
+```
 
 And, for browsers that don’t natively support web components, you have to make sure
 that you convert all the native `HTMLElement` properties to `function`s so that
