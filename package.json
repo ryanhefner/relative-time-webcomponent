@@ -1,6 +1,6 @@
 {
   "name": "relative-time-webcomponent",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple webcomponent used to render relative time, <relative-time></relative-time>, based on a provided date/time.",
   "main": "./dist/index.js",
   "directories": {
