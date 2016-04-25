@@ -12,6 +12,37 @@ Or
 
 `bower install relative-time-webcomponent`
 
+## Requirements
+
+Since web components are relatively new and not widely supported by most browsers,
+the following requirements will need to be included in your project in order for
+this to work properly across the majority of browsers that need to be supported today.
+
+`npm install document-register-element`
+`npm install es6-symbol`
+
+And, for browsers that don’t natively support web components, you have to make sure
+that you convert all the native `HTMLElement` properties to `function`s so that
+the `document-register-element` polyfill does not bork when creating this–and possibly
+your–custom elements.
+
+```
+if (typeof HTMLElement !== 'function') {
+    Object.getOwnPropertyNames(window).forEach((name) => {
+        if (name.indexOf('HTML') === 0) {
+            let tagName = name.replace('HTML', '').replace('Element', '').toLowerCase();
+
+            tagName = tagName.length && tagName !== 'unknown'
+                ? tagName
+                : 'div';
+
+            window[name] = () => {};
+            window[name].prototype = document.createElement(tagName);
+        }
+    });
+}
+```
+
 ## Usage
 
 ```
