@@ -114,6 +114,13 @@ class RelativeTime extends HTMLElement {
                 : `in ${hours} hours`;
         }
 
+        if (diff >= MINUTE) {
+            const minutes = Math.floor(diff / MINUTE);
+            return minutes === 1
+                ? `in a minute`
+                : `in ${minutes} minutes`;
+        }
+
         const seconds = Math.floor(diff / SECOND);
         return seconds === 1
             ? `in a second`
