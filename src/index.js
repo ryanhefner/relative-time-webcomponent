@@ -39,7 +39,7 @@ class RelativeTime extends HTMLElement {
             ? this[pastRelativeTime](diff)
             : this[futureRelativeTime](diff * -1);
 
-        if (this[autoUpdateEnabled]) {
+        if (this[autoUpdateEnabled]()) {
             this[requestId] = requestAnimationFrame(this[tick].bind(this));
         }
     }
@@ -53,7 +53,7 @@ class RelativeTime extends HTMLElement {
         }
 
         if (diff >= YEAR) {
-            const years = Math.round(diff / YEAR);
+            const years = Math.floor(diff / YEAR);
             return years === 1
                 ? `${years} year ago`
                 : `${years} years ago`;
@@ -95,7 +95,7 @@ class RelativeTime extends HTMLElement {
         }
 
         if (diff >= YEAR) {
-            const years = Math.round(diff / YEAR);
+            const years = Math.floor(diff / YEAR);
             return years === 1
                 ? `in a year`
                 : `in ${years} years`;
